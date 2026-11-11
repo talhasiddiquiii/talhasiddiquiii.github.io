@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -81,10 +81,10 @@
         <p>I studied Organisational Psychology because I wanted to understand why people work the way they do. Since then, the work I've enjoyed most has been finding out why something isn't working and fixing it with the people involved: cutting a proposal process's turnaround by 68%, reducing client onboarding time by 48% by changing how two teams planned together, and designing sales incentive policies that showed me how much the way a role is set up shapes how people perform in it.</p>
         <p>Before that, I ran focus groups with Ipsos and learnt that what people say first is rarely the real reason behind what they do. Today I work across supermarket and hardware stores in Perth, where I watch closely how frontline work actually runs. I'm building towards organisational development, workforce design and consulting, with a particular interest in frontline and shift-based workers.</p>
 
-        <ul class="metrics" aria-label="Key results">
-          <li class="metric"><span class="metric-figure">68%</span> <span class="metric-label">faster proposal turnaround</span></li>
-          <li class="metric"><span class="metric-figure">48%</span> <span class="metric-label">shorter client onboarding</span></li>
-          <li class="metric"><span class="metric-figure">42% → 59%</span> <span class="metric-label">market share growth from research findings</span></li>
+        <ul class="metrics" aria-label="Key results (select one to see how it happened)">
+          <li class="metric"><button class="metric-btn" type="button" data-open="story-proposal" aria-haspopup="dialog"><span class="metric-figure">68%</span> <span class="metric-label">faster proposal turnaround</span><span class="metric-hint">See how <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></button></li>
+          <li class="metric"><button class="metric-btn" type="button" data-open="story-onboarding" aria-haspopup="dialog"><span class="metric-figure">48%</span> <span class="metric-label">shorter client onboarding</span><span class="metric-hint">See how <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></button></li>
+          <li class="metric"><button class="metric-btn" type="button" data-open="story-research" aria-haspopup="dialog"><span class="metric-figure">42% → 59%</span> <span class="metric-label">market share growth from research findings</span><span class="metric-hint">See how <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></button></li>
         </ul>
       </div>
     </section>
@@ -339,6 +339,80 @@
         <a class="btn btn-primary" href="mailto:talhasiddiquiii10@gmail.com">Email me</a>
       </div>
     </section>
+    <!-- ===== Metric drill-downs (opened from the metric cards in About) ===== -->
+    <dialog class="story" id="story-proposal" aria-labelledby="story-proposal-title">
+      <div class="story-body">
+        <form method="dialog" class="story-close-form"><button class="story-close" type="submit" aria-label="Close"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></form>
+        <p class="story-eyebrow">HashMove · Sales &amp; Marketing Executive</p>
+        <h2 class="story-title" id="story-proposal-title">How proposal turnaround got 68% faster</h2>
+        <p>The commercial proposal process relied on generic legal terms. I redesigned it with an external lawyer.</p>
+        <figure class="story-chart">
+          <figcaption>Proposal turnaround time</figcaption>
+          <div class="bar-row"><span class="bar-name">Before</span><span class="bar-track"><span class="bar bar-before" style="--w: 100%"></span></span></div>
+          <div class="bar-row"><span class="bar-name">After</span><span class="bar-track"><span class="bar bar-after" style="--w: 32%"></span><span class="bar-tag">68% faster</span></span></div>
+          <p class="story-note">Bars show relative time, not exact days.</p>
+        </figure>
+        <ol class="story-steps">
+          <li><span class="step-num">1</span><span>Partnered with an external lawyer on the proposal process</span></li>
+          <li><span class="step-num">2</span><span>Rewrote generic legal terms around our business model</span></li>
+          <li><span class="step-num">3</span><span>Handled client legal teams' comments directly</span></li>
+        </ol>
+      </div>
+    </dialog>
+
+    <dialog class="story" id="story-onboarding" aria-labelledby="story-onboarding-title">
+      <div class="story-body">
+        <form method="dialog" class="story-close-form"><button class="story-close" type="submit" aria-label="Close"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></form>
+        <p class="story-eyebrow">HashMove · Customer Success Trainee</p>
+        <h2 class="story-title" id="story-onboarding-title">How client onboarding got 48% shorter</h2>
+        <p>I designed onboarding visuals and shared them with the IT team before integration, so the two teams could plan meetings around each client's setup.</p>
+        <div class="flow" aria-hidden="true">
+          <div class="flow-node flow-node-1">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16 14.2a5 5 0 0 1 6 4.8"/></svg>
+            <span>Customer Success</span>
+          </div>
+          <div class="flow-link"><span class="flow-doc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 14h8M8 17h5"/></svg></span></div>
+          <div class="flow-node flow-node-2">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+            <span>IT team</span>
+          </div>
+          <div class="flow-link flow-link-2"></div>
+          <div class="flow-node flow-node-3">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="m9 15 2 2 4-4"/></svg>
+            <span>Meetings planned around each client's setup</span>
+          </div>
+        </div>
+        <p class="sr-only">Diagram: Customer Success shares an onboarding visual with the IT team before integration, which leads to meetings planned around each client's setup.</p>
+        <figure class="story-chart">
+          <figcaption>Client onboarding time</figcaption>
+          <div class="bar-row"><span class="bar-name">Before</span><span class="bar-track"><span class="bar bar-before" style="--w: 100%"></span></span></div>
+          <div class="bar-row"><span class="bar-name">After</span><span class="bar-track"><span class="bar bar-after" style="--w: 52%"></span><span class="bar-tag">48% shorter</span></span></div>
+          <p class="story-note">Bars show relative time, not exact days.</p>
+        </figure>
+      </div>
+    </dialog>
+
+    <dialog class="story" id="story-research" aria-labelledby="story-research-title">
+      <div class="story-body">
+        <form method="dialog" class="story-close-form"><button class="story-close" type="submit" aria-label="Close"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></form>
+        <p class="story-eyebrow">Dawlance · Consumer Insights &amp; Marketing Intern</p>
+        <h2 class="story-title" id="story-research-title">How research findings helped grow market share</h2>
+        <p>What people say first is rarely the real reason behind what they do. The research was designed to get underneath that.</p>
+        <ol class="story-steps story-steps-flow">
+          <li><span class="step-num">1</span><span>Focus groups and in-depth interviews with Ipsos, across multiple product lines</span></li>
+          <li><span class="step-num">2</span><span>Thematic analysis of what people said</span></li>
+          <li><span class="step-num">3</span><span>Found what was really driving buying decisions</span></li>
+        </ol>
+        <figure class="story-chart">
+          <figcaption>Dawlance washing machine market share</figcaption>
+          <div class="columns">
+            <div class="col"><span class="col-value">42%</span><span class="col-bar" style="--h: 42%"></span><span class="col-name">Before</span></div>
+            <div class="col"><span class="col-value">59%</span><span class="col-bar col-bar-after" style="--h: 59%"></span><span class="col-name">After</span></div>
+          </div>
+          <p class="story-note">The findings helped grow market share from 42% to 59%.</p>
+        </figure>
+      </div>
+    </dialog>
   </main>
 
   <footer class="site-footer">
@@ -368,61 +442,82 @@
     <span>Contact</span>
   </a>
   <!-- Small enhancement script: highlights the current section in the header,
-       adds the header shadow, and reveals content as you scroll.
+       adds the header shadow, opens the metric drill-downs and reveals content as you scroll.
        The site works fully without it. -->
   <script>
   (function () {
-    if (!('IntersectionObserver' in window)) return;
     var d = document;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var nav = d.querySelector('.nav-list');
     var header = d.querySelector('.site-header');
-    var links = [].slice.call(nav.querySelectorAll('a[href^="#"]'));
-    var map = {};
-    links.forEach(function (a) {
-      var s = d.querySelector(a.getAttribute('href'));
-      if (s) map[s.id] = a;
-    });
 
-    /* 1. Highlight the section crossing the middle of the screen */
-    var current;
-    function setActive(id) {
-      if (current === id) return;
-      current = id;
+    /* 1. Highlight the current section in the header.
+          Works out which section sits under a line 40% down the screen,
+          on every scroll frame (reliable in Safari and Chrome alike). */
+    var links = [].slice.call(nav.querySelectorAll('a[href^="#"]'));
+    var sections = links.map(function (a) {
+      return { link: a, el: d.querySelector(a.getAttribute('href')) };
+    }).filter(function (x) { return x.el; });
+    var current = null;
+
+    function setActive(item) {
+      if (current === item) return;
+      current = item;
       links.forEach(function (a) {
-        var on = map[id] === a;
-        a.classList.toggle('is-active', on);
+        var on = item && item.link === a;
+        a.classList.toggle('is-active', !!on);
         if (on) a.setAttribute('aria-current', 'location');
         else a.removeAttribute('aria-current');
       });
-      var a = map[id];
-      if (a && nav.scrollWidth > nav.clientWidth) {
-        nav.scrollTo({ left: a.offsetLeft - (nav.clientWidth - a.offsetWidth) / 2, behavior: reduce ? 'auto' : 'smooth' });
+      if (item && nav.scrollWidth > nav.clientWidth) {
+        var a = item.link;
+        var left = a.offsetLeft - (nav.clientWidth - a.offsetWidth) / 2;
+        if (nav.scrollTo) nav.scrollTo({ left: left, behavior: reduce ? 'auto' : 'smooth' });
+        else nav.scrollLeft = left;
       }
     }
-    var spy = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) setActive(e.target.id === 'top' ? null : e.target.id);
-      });
-    }, { rootMargin: '-45% 0px -54% 0px' });
-    spy.observe(d.getElementById('top'));
-    Object.keys(map).forEach(function (id) { spy.observe(d.getElementById(id)); });
 
-    /* 2. Soft shadow under the header once you scroll */
+    function update() {
+      var y = window.scrollY || window.pageYOffset;
+      header.classList.toggle('is-scrolled', y > 8);
+      var line = window.innerHeight * 0.4;
+      var active = null;
+      var atBottom = window.innerHeight + y >= d.documentElement.scrollHeight - 4;
+      for (var i = 0; i < sections.length; i++) {
+        var el = sections[i].el;
+        if (!el.offsetParent) continue; /* skip hidden sections */
+        if (el.getBoundingClientRect().top <= line) active = sections[i];
+      }
+      if (atBottom && y > 0) {
+        for (var j = sections.length - 1; j >= 0; j--) {
+          if (sections[j].el.offsetParent) { active = sections[j]; break; }
+        }
+      }
+      setActive(active);
+    }
+
     var ticking = false;
     function onScroll() {
       if (ticking) return;
       ticking = true;
-      requestAnimationFrame(function () {
-        header.classList.toggle('is-scrolled', window.scrollY > 8);
-        ticking = false;
-      });
+      requestAnimationFrame(function () { ticking = false; update(); });
     }
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    window.addEventListener('resize', onScroll);
+    window.addEventListener('load', update);
+    update();
+
+    /* 2. Metric drill-downs */
+    [].forEach.call(d.querySelectorAll('[data-open]'), function (btn) {
+      var dlg = d.getElementById(btn.getAttribute('data-open'));
+      if (!dlg || typeof dlg.showModal !== 'function') return;
+      btn.addEventListener('click', function () { dlg.showModal(); });
+      /* Close when tapping the dimmed area outside the panel */
+      dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    });
 
     /* 3. Reveal content as it scrolls into view */
-    if (reduce) return;
+    if (reduce || !('IntersectionObserver' in window)) return;
     var items = d.querySelectorAll('.section h2, .section-intro, #about .container > p, .metric, .role, .card, .skill-group, .contact .container > p, .contact-list, .contact .btn');
     var rev = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
