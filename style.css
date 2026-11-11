@@ -22,6 +22,7 @@
   --max-width: 720px;
   --gutter: 1.25rem;
   --radius: 10px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1); /* quick start, soft landing */
 
   color-scheme: light dark;
 }
@@ -152,6 +153,36 @@ main:focus {
   z-index: 10;
   background: var(--colour-bg);
   border-bottom: 1px solid var(--colour-border);
+  transition: box-shadow 0.3s ease;
+}
+
+.site-header.is-scrolled {
+  box-shadow: var(--shadow-hover);
+}
+
+/* Thin reading-progress bar under the header (browsers that support scroll-linked animation) */
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--colour-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .site-header::after {
+    animation: progress linear both;
+    animation-timeline: scroll(root);
+  }
+
+  @keyframes progress {
+    to { transform: scaleX(1); }
+  }
 }
 
 .header-inner {
@@ -182,8 +213,9 @@ main:focus {
   overflow-x: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  position: relative;
   margin: 0 calc(-1 * var(--gutter));
-  padding: 0 var(--gutter);
+  padding: 0.15rem calc(var(--gutter) - 0.7rem) 0.25rem;
 }
 
 .nav-list::-webkit-scrollbar {
@@ -192,20 +224,30 @@ main:focus {
 
 .nav-list a {
   display: inline-block;
-  padding: 0.5rem 0.6rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
   font-size: 0.95rem;
   font-weight: 500;
   color: var(--colour-muted);
   text-decoration: none;
   white-space: nowrap;
-}
-
-.nav-list li:first-child a {
-  padding-left: 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease), transform 0.15s ease;
 }
 
 .nav-list a:hover {
   color: var(--colour-accent);
+}
+
+/* Current section (set by the small script at the bottom of index.html) */
+.nav-list a.is-active {
+  background: var(--colour-accent-tint);
+  color: var(--colour-accent-dark);
+  font-weight: 600;
+}
+
+.nav-list a:active {
+  transform: scale(0.95);
 }
 
 /* ---------- Hero ---------- */
@@ -261,7 +303,24 @@ main:focus {
   font-size: 1rem;
   text-decoration: none;
   border: 2px solid var(--colour-accent);
-  transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s var(--ease), box-shadow 0.2s ease;
+}
+
+.btn:active,
+.fab:active {
+  transform: scale(0.96);
+}
+
+@media (hover: hover) {
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .btn:active {
+    transform: translateY(0) scale(0.97);
+  }
 }
 
 .btn-primary {
@@ -319,9 +378,21 @@ main:focus {
   font-weight: 600;
   color: var(--colour-accent);
   line-height: 1.2;
-  padding-bottom: 0.15rem;
+  position: relative;
+  padding-bottom: 0.2rem;
   margin-bottom: 0.35rem;
-  border-bottom: 3px solid var(--colour-ochre); /* sparing ochre highlight */
+}
+
+/* Sparing ochre highlight under each figure */
+.metric-figure::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--colour-ochre);
+  transform-origin: left;
 }
 
 .metric-label {
@@ -661,6 +732,92 @@ main:focus {
 }
 
 /* =========================================================
+   Motion: transform and opacity only, so it stays smooth
+   ========================================================= */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hero eases in on load */
+.hero .container > * {
+  animation: rise 0.7s var(--ease) backwards;
+}
+
+.hero .container > :nth-child(2) { animation-delay: 0.06s; }
+.hero .container > :nth-child(3) { animation-delay: 0.12s; }
+.hero .container > :nth-child(4) { animation-delay: 0.2s; }
+.hero .container > :nth-child(5) { animation-delay: 0.28s; }
+
+/* Content rises in as it scrolls into view (classes added by the script) */
+.reveal:not(.is-visible) {
+  opacity: 0;
+}
+
+.reveal.is-visible {
+  animation: rise 0.65s var(--ease) backwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+/* Ochre underline draws across once the metric appears */
+.metric.reveal:not(.is-visible) .metric-figure::after {
+  transform: scaleX(0);
+}
+
+.metric.is-visible .metric-figure::after {
+  animation: draw 0.8s var(--ease) backwards;
+  animation-delay: calc(var(--i, 0) * 70ms + 0.3s);
+}
+
+/* Experience details slide open */
+.role-details[open] ul {
+  animation: drop 0.35s var(--ease);
+}
+
+.role-details summary:active .summary-inner {
+  transform: scale(0.97);
+}
+
+.summary-inner {
+  transition: transform 0.15s ease;
+}
+
+/* Chips respond on hover */
+@media (hover: hover) {
+  .chips li {
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s var(--ease);
+  }
+
+  .chips li:hover {
+    border-color: var(--colour-accent);
+    color: var(--colour-accent-dark);
+    transform: translateY(-1px);
+  }
+}
+
+/* =========================================================
    Larger screens
    ========================================================= */
 @media (min-width: 600px) {
@@ -683,13 +840,9 @@ main:focus {
   }
 
   .nav-list {
-    margin: 0;
+    margin: 0 -0.7rem 0 0;
     padding: 0;
     overflow: visible;
-  }
-
-  .nav-list li:first-child a {
-    padding-left: 0.6rem;
   }
 
   .hero {

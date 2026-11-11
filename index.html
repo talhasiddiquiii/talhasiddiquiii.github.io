@@ -367,5 +367,78 @@
     <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
     <span>Contact</span>
   </a>
+  <!-- Small enhancement script: highlights the current section in the header,
+       adds the header shadow, and reveals content as you scroll.
+       The site works fully without it. -->
+  <script>
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var d = document;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var nav = d.querySelector('.nav-list');
+    var header = d.querySelector('.site-header');
+    var links = [].slice.call(nav.querySelectorAll('a[href^="#"]'));
+    var map = {};
+    links.forEach(function (a) {
+      var s = d.querySelector(a.getAttribute('href'));
+      if (s) map[s.id] = a;
+    });
+
+    /* 1. Highlight the section crossing the middle of the screen */
+    var current;
+    function setActive(id) {
+      if (current === id) return;
+      current = id;
+      links.forEach(function (a) {
+        var on = map[id] === a;
+        a.classList.toggle('is-active', on);
+        if (on) a.setAttribute('aria-current', 'location');
+        else a.removeAttribute('aria-current');
+      });
+      var a = map[id];
+      if (a && nav.scrollWidth > nav.clientWidth) {
+        nav.scrollTo({ left: a.offsetLeft - (nav.clientWidth - a.offsetWidth) / 2, behavior: reduce ? 'auto' : 'smooth' });
+      }
+    }
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) setActive(e.target.id === 'top' ? null : e.target.id);
+      });
+    }, { rootMargin: '-45% 0px -54% 0px' });
+    spy.observe(d.getElementById('top'));
+    Object.keys(map).forEach(function (id) { spy.observe(d.getElementById(id)); });
+
+    /* 2. Soft shadow under the header once you scroll */
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        header.classList.toggle('is-scrolled', window.scrollY > 8);
+        ticking = false;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* 3. Reveal content as it scrolls into view */
+    if (reduce) return;
+    var items = d.querySelectorAll('.section h2, .section-intro, #about .container > p, .metric, .role, .card, .skill-group, .contact .container > p, .contact-list, .contact .btn');
+    var rev = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          rev.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    [].forEach.call(items, function (el) {
+      var i = [].indexOf.call(el.parentNode.children, el);
+      el.style.setProperty('--i', Math.min(i, 4));
+      el.classList.add('reveal');
+      rev.observe(el);
+    });
+  })();
+  </script>
 </body>
 </html>
