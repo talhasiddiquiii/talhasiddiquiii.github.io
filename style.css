@@ -51,6 +51,7 @@
 }
 
 html {
+  background: var(--colour-bg); /* Safari uses this for the overscroll area */
   scroll-behavior: smooth;
   scroll-padding-top: 6rem; /* keeps headings clear of the sticky header */
   -webkit-text-size-adjust: 100%;
@@ -93,6 +94,7 @@ img {
 }
 
 a {
+  touch-action: manipulation;
   color: var(--colour-accent);
   text-underline-offset: 0.18em;
   text-decoration-thickness: 1px;
@@ -514,25 +516,42 @@ main:focus {
 }
 
 .role-details summary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  min-height: 44px;
-  padding: 0.25rem 0;
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--colour-accent);
-  cursor: pointer;
+  /* Safari doesn't lay out <summary> as flex reliably, so keep it a block
+     and put the flex layout on an inner span */
+  display: block;
   list-style: none;
+  cursor: pointer;
   border-radius: 4px;
+  color: var(--colour-accent);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation; /* stops iOS waiting for a double-tap */
 }
 
 .role-details summary::-webkit-details-marker {
   display: none;
 }
 
+.role-details summary::marker {
+  content: "";
+}
+
+.summary-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  pointer-events: none; /* taps always land on the summary itself */
+}
+
 .role-details summary:hover {
   color: var(--colour-accent-dark);
+}
+
+.role-details summary:hover .summary-inner {
   text-decoration: underline;
   text-underline-offset: 0.18em;
 }
@@ -566,7 +585,10 @@ main:focus {
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   }
 
-  .role:hover,
+  .role:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
   .card:hover,
   .metric:hover {
     transform: translateY(-2px);
